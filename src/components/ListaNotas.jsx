@@ -1,6 +1,10 @@
-const ListaNotas = () =>{
+import Nota from "./Nota" 
 
-    return <p>ListaNotas</p>
+const ListaNotas = ({notas}) =>{
+
+    console.log(notas)
+
+    return notas.map((nota) => <Nota nota={nota}/>)
 
 }
 
