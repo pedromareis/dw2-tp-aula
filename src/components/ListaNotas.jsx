@@ -1,20 +1,40 @@
+import { useState } from "react";
+
 import Nota from "./Nota";
+import "../styles/ListaNotas.css";
 
-const ListaNotas = ({notasTestes}) =>{
-    console.log(notasTestes);
+const ListaNotas = ({ notas }) => {
+  const [ultimaNotaClicada, setUltimaNotaClicada] = useState("NENHUM");
+  // console.log(notas);
 
-    return notasTestes.map(nota => <Nota nota={nota}/> );
+  const clickNaNota = (disc) => {
+    console.log("cliquei na nota " + disc);
+    setUltimaNotaClicada(disc);
+  };
 
-    /* return notasTestes.map(nota => {
-        return (
-        <>
-            <p>{nota.id}</p>
-            <p>{nota.disciplina}</p>
-            <p>{nota.nota}</p>
+  return (
+    <div className="container">
+      <p style={{ fontSize: 32, fontWeight: "bold" }}>
+        Ultima nota clicada: {ultimaNotaClicada}
+      </p>
+      {notas.map((nota) => (
+        <Nota
+          stilos={{ backgroundColor: "lightBlue" }}
+          key={nota.id}
+          nota={nota}
+          // funca3={clickNaNota}
+          // funcao2={function () {
+          // 	clickNaNota();
+          // }}
+          funcao={(disc) => {
+            clickNaNota(disc);
+          }}
+        ></Nota>
+      ))}
+    </div>
+  );
 
-        </>);
-
-    }); */
-}
-
+  //  <p>{JSON.stringify(notas)}</p>
+};
 export default ListaNotas;
+// function ListaNotas(){}
