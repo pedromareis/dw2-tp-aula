@@ -4,8 +4,8 @@
 
 const Nota = ({ nota, funcao, stilos }) => {
 	return (
-		<div 
-			style={{...stilos, color: "blue"}}
+		<div
+			style={{ ...stilos, color: "blue" }}
 			onClick={() => {
 				console.log("Cliquei no elemento no ficheiro Notas.jsx");
 				funcao(nota.disciplina);

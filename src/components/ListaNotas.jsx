@@ -19,7 +19,7 @@ const ListaNotas = ({ notas }) => {
 			</p>
 			{notas.map((nota) => (
 				<Nota
-                    stilos ={{backgroundColor: "red"}}
+					stilos={{ backgroundColor: "red" }}
 					key={nota.id}
 					nota={nota}
 					// funca3={clickNaNota}
