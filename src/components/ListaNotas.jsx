@@ -1,29 +1,31 @@
-// const ListaNotas = (props) => {
-//   return <p>{JSON.stringify(props.notas)}</p>;
-// };
-
+import { useState } from "react";
 import Nota from "./Nota";
+import "./ListaNotas.css";
 
 const ListaNotas = ({ notas }) => {
-  let ultimaNotaClicada = null;
+  const [ultimaNotaClicada, setUltimaNotaClicada] = useState("NENHUM");
 
-  const clickNaNota = () => {
-    console.log("cliquei numa nota");
+  const clickNaNota = (disc) => {
+    setUltimaNotaClicada(disc);
   };
 
   return (
-    <div>
-      <p>Última nota clicada: {ultimaNotaClicada}</p>
-      <br />
+    <div className="container">
+      <p style={{ fontSize: 48, fontWeight: "bold" }}>
+        Última nota clicada: {ultimaNotaClicada}
+      </p>
 
-      {notas.map((nota) => (
+      {notas.map((nota, index) => (
         <Nota
+          estilos={{ fontSize: 48, fontWeight: "bold" }}
+          // key={index}
+          key={nota.id}
           nota={nota}
-          funcao={() => {
-            clickNaNota();
+          funcao={(disc) => {
+            clickNaNota(disc);
           }}
-          funcao2={function () {
-            clickNaNota();
+          funcao2={function (disc) {
+            clickNaNota(disc);
           }}
           funcao3={clickNaNota}
         />

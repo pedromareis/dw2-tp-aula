@@ -4,13 +4,14 @@ const NotaProps = (props) => {
   return <p>{props.nota.disciplina + ": " + props.nota.nota + " valores"}</p>;
 };
 
-// V1: Props destruturadas
-const Nota = ({ nota, funcao }) => {
+// V2: Props destruturadas
+const Nota = ({ nota, funcao, estilos }) => {
   return (
     <div
+      style={{ ...estilos, cursor: "pointer", backgroundColor: "yellow" }}
       onClick={() => {
         console.log("Cliquei no elemento no ficheiro Nota.jsx");
-        funcao();
+        funcao(nota.disciplina);
       }}
     >
       {nota.disciplina + ": " + nota.nota + " valores"}
