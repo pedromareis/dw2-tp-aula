@@ -1,12 +1,14 @@
-const Nota = ({ nota, funcao }) => {
+const Nota = ({ nota, funcao, estilo }) => {
   return (
     <div
       onClick={() => {
-        console.log("cliquei no elemento no ficheiro nota.jsx");
-        funcao();
+        console.log("cliquei no elemento no ficheiro Nota.jsx");
+        funcao(nota.disciplina);
       }}
     >
-      <p>{nota.id + ": " + nota.disciplina + " " + nota.nota} </p>
+      <p style={{ ...estilo, cursor: "pointer", fontSize: 30 }}>
+        {nota.id + ": " + nota.disciplina + " " + nota.nota}{" "}
+      </p>
     </div>
   );
 };

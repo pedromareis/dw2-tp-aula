@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Nota from "./Nota";
+import "./ListaNotas.css";
 
 const ListaNotas = ({ notasTestes }) => {
   console.log(notasTestes);
@@ -18,21 +20,32 @@ const ListaNotas = ({ notasTestes }) => {
 
     }); */
 
-  const clickNaNota = () => {
-    console.log("Cliquei na nota");
+  const [numero, setNumero] = useState();
+
+  const [ultimaNotaClicada, setUltimaNotaClicada] = useState("Nenhum");
+
+  const clickNaNota = (disc) => {
+    console.log("Cliquei na nota - " + disc);
+    setUltimaNotaClicada(disc);
   };
 
   return (
-    <div>
-      <p>Ultima nota clicada: </p>
+    <div className="container">
+      <p style={{ fontSize: 52, fontWeight: "bold" }}>
+        Ultima nota clicada: {ultimaNotaClicada}
+      </p>
       <br />
 
       {notasTestes.map((nota, index) => (
         <Nota
           /* key={index.toString()} */
+          estilo={{ fontSize: 22, fontWeight: "bold" }}
           key={nota.id}
           nota={nota}
-          funcao={clickNaNota}
+          funcao={(disc) => {
+            clickNaNota(disc);
+          }}
+          /* funcao={clickNaNota} */
         />
       ))}
     </div>
