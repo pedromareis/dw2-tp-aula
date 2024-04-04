@@ -27,8 +27,13 @@ const ListaNotas = ({ notasTestes }) => {
       <p>Ultima nota clicada: </p>
       <br />
 
-      {notasTestes.map((nota) => (
-        <Nota nota={nota} funcao={clickNaNota} />
+      {notasTestes.map((nota, index) => (
+        <Nota
+          /* key={index.toString()} */
+          key={nota.id}
+          nota={nota}
+          funcao={clickNaNota}
+        />
       ))}
     </div>
   );
