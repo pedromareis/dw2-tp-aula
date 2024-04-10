@@ -1,49 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import ListaNotas from "./components/ListaNotas";
-import { aluno1 } from "./data/notas-alunos";
-import Select from "react-select";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./pages/Layout";
-import Home from "./pages/Home";
-import Blogs from "./pages/Blogs";
-import Contact from "./pages/Contact";
-import NoPage from "./pages/NoPage";
 
 function App() {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [numero, setNumero] = useState(0);
+  const [numero2, setNumero2] = useState(0);
+  const [alerta, setAlerta] = useState(undefined);
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
+  useEffect(() => {
+    console.log("useEffect tipo 3: array dependências com dependência numero");
+    if (numero > 10) {
+      setAlerta("Numero maior que 10");
+    }
+  }, [numero, numero2]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-
-    // <div className="App">
-    //   <header className="App-header">
-    //     <div>{/* <ListaNotas notas={aluno1} /> */}</div>
-    //     {/* <Select
-    //       defaultValue={selectedOption}
-    //       onChange={setSelectedOption}
-    //       options={options}
-    //       className="react-select-container"
-    //       classNamePrefix="react-select"
-    //     /> */}
-    //   </header>
-    // </div>
+    <div className="App">
+      <header className="App-header">
+        <p>Valor do numero: {numero}</p>
+        <button
+          style={{ fontSize: 32 + numero }}
+          onClick={() => setNumero(numero + 1)}
+        >
+          Incrementa
+        </button>
+        <button
+          style={{ fontSize: 32 + numero2 }}
+          onClick={() => setNumero2(numero2 + 1)}
+        >
+          Incrementa o n2
+        </button>
+        {alerta && <p>{alerta}</p>}
+      </header>
+    </div>
   );
 }
 
