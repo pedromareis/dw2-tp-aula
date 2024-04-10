@@ -7,6 +7,14 @@ function App() {
   const [alerta, setAlerta] = useState(undefined);
 
   useEffect(() => {
+    console.log("useEffect tipo 1: sem dependências");
+  });
+
+  useEffect(() => {
+    console.log("useEffect tipo 2: array dependências vazio");
+  }, []);
+
+  useEffect(() => {
     console.log("useEffect tipo 3: array dependências com dependência numero");
     if (numero > 10) {
       setAlerta("Numero maior que 10");
