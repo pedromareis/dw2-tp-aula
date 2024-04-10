@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-logo {
@@ -35,4 +35,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.react-select__control {
+  width: 400px;
+}
+
+.react-select__input {
+  text-align: left !important;
+}
+
+.react-select__menu {
+  color: gray;
 }
