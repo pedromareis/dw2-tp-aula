@@ -1,5 +1,11 @@
 import "./App.css";
 import ListaNotas from "./components/ListaNotasTeste";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import NoPage from "./pages/NoPage";
 
 function App() {
   const notas = [
@@ -14,11 +20,24 @@ function App() {
     { id: 3, disciplina: "FP", nota: "1" },
   ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <ListaNotas notas={notas} />
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="blogs" element={<Blogs />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="*" element={<NoPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+
+      <div className="App">
+        <header className="App-header">
+          <ListaNotas notas={notas} />
+        </header>
+      </div>
+    </>
   );
 }
 

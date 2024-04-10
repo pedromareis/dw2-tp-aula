@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Nota from "./Nota";
-import { CSSProperties } from "react";
 
 const ListaNotas = ({ notas }) => {
   let aux = 0;
@@ -37,4 +36,5 @@ const ListaNotas = ({ notas }) => {
     </div>
   );
 };
+
 export default ListaNotas;
