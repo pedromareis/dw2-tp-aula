@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button, Form, Input, InputNumber, Select } from "antd";
+import { useEffect, useState } from "react";
 import "./EditHouse.css";
-import { useState } from "react";
 
 const { Option } = Select;
 
@@ -16,7 +16,10 @@ const formItemLayout = {
   },
 };
 
-const EditHouse = () => {
+const EditHouse = ({ supabase }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const [casa, setCasa] = useState({
     nome: "Teste",
     descricao: "",
@@ -25,13 +28,42 @@ const EditHouse = () => {
     preco: null,
   });
 
+  useEffect(() => {
+    const getCasaById = async () => {
+      const { data } = await supabase.from("casas").select().eq("id", id);
+      if (data && data.length > 0) {
+        setCasa(data[0]);
+      }
+    };
+
+    // Pré-popular o form com os dados
+    if (id) {
+      getCasaById();
+    }
+  }, []);
+
+  const insertCasa = async () => {
+    await supabase.from("casas").insert(casa);
+    navigate("/");
+  };
+
+  const deleteCasa = async () => {
+    await supabase.from("casas").delete().eq("id", id);
+    navigate("/");
+  };
+
+  const updateCasa = async () => {
+    await supabase.from("casas").update(casa).eq("id", id);
+    navigate("/");
+  };
+
   return (
     <>
       <Form {...formItemLayout} style={{ width: "80%" }}>
         <Form.Item label="Nome">
           <Input
             placeholder="Nome"
-            defaultValue={casa.nome}
+            value={casa.nome}
             onChange={(e) => {
               setCasa({ ...casa, nome: e.target.value });
             }}
@@ -43,7 +75,7 @@ const EditHouse = () => {
             allowClear
             showCount
             placeholder="Descrição"
-            defaultValue={casa.descricao}
+            value={casa.descricao}
             onChange={(e) => {
               setCasa({ ...casa, descricao: e.target.value });
             }}
@@ -53,7 +85,7 @@ const EditHouse = () => {
         <Form.Item label="Morada">
           <Input
             placeholder="Morada"
-            defaultValue={casa.morada}
+            value={casa.morada}
             onChange={(e) => {
               setCasa({ ...casa, morada: e.target.value });
             }}
@@ -64,7 +96,7 @@ const EditHouse = () => {
           <Select
             placeholder="Tipo"
             allowClear
-            defaultValue={casa.tipo}
+            value={casa.tipo}
             onChange={(value) => {
               setCasa({ ...casa, tipo: value });
             }}
@@ -78,7 +110,7 @@ const EditHouse = () => {
           <InputNumber
             style={{ width: "100%" }}
             addonAfter="€"
-            defaultValue={casa.preco}
+            value={casa.preco}
             onChange={(e) => {
               setCasa({ ...casa, preco: e });
             }}
@@ -94,13 +126,43 @@ const EditHouse = () => {
           <Link to="/">Voltar atrás</Link>
         </Button>
 
-        <Button
-          type="primary"
-          style={{ fontSize: 30, height: "auto", padding: 24 }}
-          onClick={() => console.log(casa)}
-        >
-          Guardar
-        </Button>
+        {!id && (
+          <Button
+            type="primary"
+            style={{ fontSize: 30, height: "auto", padding: 24 }}
+            onClick={() => {
+              console.log(casa);
+              insertCasa();
+            }}
+          >
+            Guardar
+          </Button>
+        )}
+
+        {id && (
+          <Button
+            type="primary"
+            style={{ fontSize: 30, height: "auto", padding: 24 }}
+            onClick={() => {
+              updateCasa();
+            }}
+          >
+            Atualizar
+          </Button>
+        )}
+
+        {id && (
+          <Button
+            type="primary"
+            danger
+            style={{ fontSize: 30, height: "auto", padding: 24 }}
+            onClick={() => {
+              deleteCasa();
+            }}
+          >
+            Apagar
+          </Button>
+        )}
       </div>
     </>
   );
