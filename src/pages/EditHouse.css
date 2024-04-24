@@ -1,0 +1,22 @@
+.ant-form-item-label label {
+  font-size: 30px !important;
+}
+
+.ant-form-item input,
+.ant-form-item textarea,
+.ant-select-selection-search-input input {
+  font-size: 30px !important;
+}
+
+.ant-input-number-group-addon {
+  font-size: 30px !important;
+}
+
+.ant-select-selector {
+  height: 70px !important;
+  font-size: 30px !important;
+}
+
+.ant-select-selection-item span {
+  font-size: 30px !important;
+}
